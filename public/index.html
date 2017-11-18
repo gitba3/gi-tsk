@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Road Corridor Permit application forms</title>
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">     -->
+</head>
+
+<body>
+  <div id="root"></div>
+  <script id="decoderWorker" type="javascript/worker" src="js/DecoderWorker"></script>
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+    crossorigin="anonymous"></script>
+  <script type="text/javascript" src="js/qrcodelib.js"></script>
+  <script type="text/javascript" src="js/webcodecamjs.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+    crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    var myWorker = null,
+      URL = window.URL || (window.webkitURL); // simple polyfill
+
+    window.URL = URL;
+
+    // we are creating a new javascript file using blob. we just fetch the content of the script tag
+    // located in our html file and assign it to the Blob(content,type)
+    // of course you can also assign the desired function to a variable, instead
+    // of putting this into a script tag.
+    var workerData = new Blob([document.getElementById('decoderWorker').textContent], {
+      type: "text/javascript"
+    });
+
+    function init() {
+      if (typeof (Worker) === undefined) { // check if browser supports web workers
+        alert('No webworker supported');
+        return false;
+      }
+      // create the new web worker
+      // as we dont have an external file, we have to create a url
+      //  for our blob using createObjectURL. which is somewhat similar to
+      // base64 encoded images. link will look like 
+      // blob:d3958f5c-0777-0845-9dcf-2cb28783acaf
+      myWorker = new Worker(window.URL.createObjectURL(workerData));
+
+      // listen for messages sent by the worker
+      myWorker.onmessage = function (e) {
+        // output
+        document.getElementById('counter').innerHTML = e.data;
+      };
+    }
+
+    init();
+  </script>
+</body>
+
+</html>
