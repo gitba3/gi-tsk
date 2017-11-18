@@ -21,10 +21,10 @@ class CodeScanner extends Component {
       resultFunction: this.setScannedText,
       successTimeout: 500
     };
-    // const WebCodeCamJS = window.WebCodeCamJS;
-    // const canvas = document.querySelector("#scanner-canvas");
-    // this.scanner = new WebCodeCamJS(canvas).init(arg);
-    this.scanner = window.codeScanner;
+    const WebCodeCamJS = window.WebCodeCamJS;
+    const canvas = document.querySelector("#scanner-canvas");
+    this.scanner = new WebCodeCamJS(canvas).init(arg);
+    // this.scanner = window.codeScanner;
   }
 
   render() {

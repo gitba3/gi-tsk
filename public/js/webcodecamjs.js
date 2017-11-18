@@ -71,7 +71,7 @@ var WebCodeCamJS = function(element) {
       flipHorizontal: false,
       zoom: 0,
       beep: "audio/beep.mp3",
-      decoderWorker: "js/DecoderWorker.js",
+    //   decoderWorker: "js/DecoderWorker.js",
       // decoderWorker: 'http://rawgit.com/andrastoth/webcodecamjs/master/js/DecoderWorker.js',
       brightness: 0,
       autoBrightnessValue: 0,
