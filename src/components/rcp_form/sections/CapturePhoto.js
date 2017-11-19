@@ -20,7 +20,8 @@ class Capture extends Component {
   openModal = () => this.setState({ open: true });
   render() {
     return (
-      <div>
+      <div className="border border-secondary m-1 p-1 align-middle">
+        <p>Capture Photo</p>
         {/*<Modal
           show={this.state.open}
           onHide={this.closeModal}
@@ -61,7 +62,7 @@ class Capture extends Component {
               className="btn btn-primary"
               onClick={this.openModal}
             >
-              Capture Photo
+              Capture
             </button>
           )}
           {this.state.open && (
@@ -75,7 +76,7 @@ class Capture extends Component {
               </button>
               <button
                 type="button"
-                className="btn btn-outline-primary ml-2"
+                className="btn btn-outline-primary"
                 onClick={this.closeModal}
               >
                 Cancel
@@ -99,7 +100,6 @@ const select = state => ({
 });
 
 const actions = dispatch => ({
-  changeValue: (field, val) =>
-    dispatch(change("ApplicationForm", field, val))
+  changeValue: (field, val) => dispatch(change("ApplicationForm", field, val))
 });
 export default connect(select, actions)(Capture);

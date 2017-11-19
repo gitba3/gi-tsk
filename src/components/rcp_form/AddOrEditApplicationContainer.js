@@ -47,7 +47,7 @@ export class AddOrEditApplicationContainer extends React.Component {
         : "New Application";
 
     return (
-      <div className="container-fluid">
+      <div className="container">
         <ApplicationForm
           heading={heading}
           handleSave={this.handleSave}

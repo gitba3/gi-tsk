@@ -27,19 +27,28 @@ export class ApplicationForm extends Component {
     return (
       <form onSubmit={null}>
         <h1>{heading}</h1>
-        { true &&
+        {true && (
           <div>
             <ApplicantDetails />
             <ExistingPermit />
             <ApprovalDuration />
             <Description />
             <MapContainer />
-            <CodeScanner />
-            <CaptureAudio />
-            <CapturePhoto />
+            <div>
+              <h4>
+                <b>6.</b> Details of how you plan to carry out the works,
+                structures or activities
+              </h4>
+              <h5>Media Tools</h5>
+              <div >
+                <CodeScanner />
+                <CaptureAudio />
+                <CapturePhoto />
+              </div>
+            </div>
             <Acknowledgement />
           </div>
-        }
+        )}
         <div>
           <button
             type="submit"

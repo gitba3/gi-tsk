@@ -44,7 +44,7 @@ class CodeScanner extends Component {
 
   render() {
     return (
-      <div>
+      <div className="border border-secondary m-1 p-1 mb-3">
         <p>Scan your Item</p>
         <div className="mx-auto" style={{ width: 320 }}>
           <canvas

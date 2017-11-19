@@ -93,7 +93,7 @@ export class CaptureAudio extends Component {
     const { record, data } = this.state;
     // console.log(this.speech);
     return (
-      <div>
+      <div className="border border-secondary m-1 p-1 mb-3">
         <p>Record Audio File</p>
         <div className="mx-auto" style={{ width: "100%" }}>
           {true && (
@@ -113,10 +113,6 @@ export class CaptureAudio extends Component {
               ref="audioSource"
               controls="controls"
               src={this.props.audio_data}
-            />
-            <Speech
-              cb={this.props.changeAudioText}
-              ref={c => (this.speech = c)}
             />
           </div>
           <div className="mb-2 mt-2">
@@ -139,6 +135,10 @@ export class CaptureAudio extends Component {
                 {" Start"}
               </button>
             )}
+            <Speech
+              cb={this.props.changeAudioText}
+              ref={c => (this.speech = c)}
+            />
           </div>
         </div>
         <Field

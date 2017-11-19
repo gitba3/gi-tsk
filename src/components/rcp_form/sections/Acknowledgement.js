@@ -53,7 +53,9 @@ const Acknowledgement = ({ changeApplicantType, isIndividual }) => (
       label=""
       component={FieldInput}
     />
-    <p>I / We the applicant(s)</p>
+    <h4>
+      <b>7.</b> I / We the applicant(s)
+    </h4>
     <div className="btn-group" data-toggle="buttons">
       <label
         onClick={() => changeApplicantType("ind")}

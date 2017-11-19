@@ -26,3 +26,11 @@ h4 {
   margin-bottom: 20px;
   padding-bottom: 10px;
 }
+
+.media-border {
+  outline: 1px solid orange;
+}
+
+.zero-height {
+  height: 0px;
+}

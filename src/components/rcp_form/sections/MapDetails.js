@@ -5,11 +5,11 @@ import { connect } from "react-redux";
 import FieldInput from "../../common/FieldInput";
 const style = {
   width: "100%",
-  height: 180
+  height: 230
 };
 const mapStyle = {
-  width: "98%",
-  height: 100
+  width: "92%",
+  height: 150
 };
 export class MapContainer extends Component {
   state = { position: {} };

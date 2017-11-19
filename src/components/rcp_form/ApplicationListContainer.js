@@ -116,7 +116,7 @@ export class ApplicationListContainer extends React.Component {
                     </div>
                 </div>
 
-                <div className="row">
+                <div className="row mt-3">
                     <div className="col">
                         <ApplicationList applications={applications} handleRowSelect={this.handleRowSelect}/>
                     </div>
