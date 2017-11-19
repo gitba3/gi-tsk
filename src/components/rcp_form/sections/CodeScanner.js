@@ -13,17 +13,32 @@ class CodeScanner extends Component {
   };
   stopScanning = () => {
     this.setState({ scanning: false }, () => this.scanner.stop());
-  }
+  };
   componentDidMount() {
     const txt =
       "innerText" in HTMLElement.prototype ? "innerText" : "textContent";
     const arg = {
       resultFunction: this.setScannedText,
-      successTimeout: 500
+      successTimeout: 500,
+      // constraints: {
+      //   video: {
+      //     mandatory: {
+      //       maxWidth: 1280,
+      //       maxHeight: 720
+      //     },
+      //     optional: [
+      //       {
+      //         sourceId: true
+      //       }
+      //     ]
+      //   },
+      //   audio: false
+      // }
     };
     const WebCodeCamJS = window.WebCodeCamJS;
     const canvas = document.querySelector("#scanner-canvas");
     this.scanner = new WebCodeCamJS(canvas).init(arg);
+    // this.scanner.buildSelectMenu("select", 1);
     // this.scanner = window.codeScanner;
   }
 
@@ -36,6 +51,7 @@ class CodeScanner extends Component {
             id="scanner-canvas"
             className={`${this.state.scanning ? "" : "scanner-hide"}`}
           />
+          
           {this.state.scanning && (
             <button
               type="button"

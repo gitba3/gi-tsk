@@ -57,13 +57,13 @@ const Acknowledgement = ({ changeApplicantType, isIndividual }) => (
     <div className="btn-group" data-toggle="buttons">
       <label
         onClick={() => changeApplicantType("ind")}
-        className={`btn active ${isIndividual ? "btn-info" : "btn-secondary"}`}
+        className={`btn ${isIndividual ? "btn-info" : "btn-secondary"}`}
       >
         {"Individual"}
       </label>
       <label
         onClick={() => changeApplicantType("corp")}
-        className={`btn active ${!isIndividual ? "btn-info" : "btn-secondary"}`}
+        className={`btn ${!isIndividual ? "btn-info" : "btn-secondary"}`}
       >
         {"Corporate"}
       </label>

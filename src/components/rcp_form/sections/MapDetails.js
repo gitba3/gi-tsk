@@ -3,7 +3,14 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import { Field, change, formValueSelector } from "redux-form";
 import { connect } from "react-redux";
 import FieldInput from "../../common/FieldInput";
-
+const style = {
+  width: "100%",
+  height: 180
+};
+const mapStyle = {
+  width: "98%",
+  height: 100
+};
 export class MapContainer extends Component {
   state = { position: {} };
   updateValue = c => {
@@ -36,23 +43,16 @@ export class MapContainer extends Component {
 
   render() {
     const { position, isLoading, address } = this.state;
-    const style = {
-      width: "100%",
-      height: 150
-    };
     return (
       <div>
         <div style={style}>
-          <h4><b>5. </b> Location</h4>
+          <h4>
+            <b>5. </b> Location
+          </h4>
           <Map
-            containerStyle={{
-              width: "100%",
-              height: 100
-            }}
-            style={{
-              width: "100%",
-              height: 100
-            }}
+            scrollwheel={false}
+            containerStyle={mapStyle}
+            style={mapStyle}
             centerAroundCurrentLocation={true}
             visible={this.props.loaded}
             google={this.props.google}

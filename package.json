@@ -7,10 +7,13 @@
   "dependencies": {
     "bootstrap": "4.0.0-alpha.6",
     "font-awesome": "^4.7.0",
+    "gh-pages": "^1.1.0",
     "google-maps-react": "^1.1.2",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
+    "mongodb": "^2.2.33",
     "react": "^15.4.2",
+    "react-audio-recorder": "^2.0.0",
     "react-bootstrap-table": "^3.4.1",
     "react-dom": "^15.4.2",
     "react-mic": "^9.0.0",

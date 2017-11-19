@@ -2,8 +2,60 @@ import React, { PropTypes, Component } from "react";
 import { ReactMic } from "react-mic";
 import { connect } from "react-redux";
 import { Field, formValueSelector, change } from "redux-form";
-
+// import AudioRecorder from './audio/AudioRecorder';
+import SpeechRecognition from "react-speech-recognition";
 import FieldInput from "../../common/FieldInput";
+
+class Dictaphone extends Component {
+  componentWillReceiveProps(c, p) {
+    if (c.transcript !== p.transcript) {
+      c.cb(c.transcript);
+    }
+  }
+  render() {
+    const {
+      transcript,
+      resetTranscript,
+      browserSupportsSpeechRecognition,
+      startListening,
+      abortListening,
+      stopListening
+    } = this.props;
+    console.log(this.props);
+    if (!browserSupportsSpeechRecognition) {
+      return null;
+    }
+
+    return (
+      <div>
+        {/*
+        <button id="start_reading" type="button" onClick={startListening}>
+          Start
+        </button>
+        <button id="abort_reading" type="button" onClick={abortListening}>
+          abortListening
+        </button>
+        <button id="stop_reading" type="button" onClick={stopListening}>
+          stopListening
+        </button>
+        <button id="reset_reading" type="button" onClick={resetTranscript}>
+          resetTranscript
+      </button>*/}
+        <Field
+          type="text"
+          name="audio_text"
+          label="Audio Text"
+          component={FieldInput}
+        />
+      </div>
+    );
+  }
+}
+
+const Speech = SpeechRecognition({
+  autoStart: false
+})(Dictaphone);
+// const Speech = Dictaphone;
 
 export class CaptureAudio extends Component {
   constructor(props) {
@@ -15,6 +67,11 @@ export class CaptureAudio extends Component {
   }
 
   toggleRecording = () => {
+    // let button = window.$("start_reading");
+    // console.log("button", button.click());
+    !this.state.record
+      ? this.speech.resetTranscript() & this.speech.startListening()
+      : this.speech.stopListening();
     this.setState({
       record: !this.state.record
     });
@@ -34,25 +91,32 @@ export class CaptureAudio extends Component {
 
   render() {
     const { record, data } = this.state;
+    // console.log(this.speech);
     return (
       <div>
         <p>Record Audio File</p>
-        <div className="mx-auto" style={{ width: 320 }}>
-          <ReactMic
-            width={320}
-            mimeType="audio/wav"
-            record={this.state.record}
-            className="sound-wave"
-            onStop={this.onStop}
-            strokeColor="#007bff"
-            backgroundColor="#fff"
-            // visualSetting=""
-          />
+        <div className="mx-auto" style={{ width: "100%" }}>
+          {true && (
+            <ReactMic
+              width={320}
+              mimeType="audio/wav"
+              record={this.state.record}
+              className="sound-wave"
+              onStop={this.onStop}
+              strokeColor="#007bff"
+              backgroundColor="#fff"
+              // visualSetting=""
+            />
+          )}
           <div>
             <audio
               ref="audioSource"
               controls="controls"
               src={this.props.audio_data}
+            />
+            <Speech
+              cb={this.props.changeAudioText}
+              ref={c => (this.speech = c)}
             />
           </div>
           <div className="mb-2 mt-2">
@@ -94,6 +158,8 @@ const select = state => ({
   audio_data: selector(state, "audio_data")
 });
 const actions = dispatch => ({
-  changeAudioData: val => dispatch(change("ApplicationForm", "audio_data", val))
+  changeAudioData: val =>
+    dispatch(change("ApplicationForm", "audio_data", val)),
+  changeAudioText: val => dispatch(change("ApplicationForm", "audio_text", val))
 });
 export default connect(select, actions)(CaptureAudio);

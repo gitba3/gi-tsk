@@ -1,109 +1,93 @@
-import * as ActionType from './ActionType';
-import ApplicationApi from '../api/ApplicationApi';
-import { ApiCallBeginAction, ApiCallErrorAction } from './ApiAction';
-
-
+import * as ActionType from "./ActionType";
+import ApplicationApi from "../api/ApplicationApi";
+import { ApiCallBeginAction, ApiCallErrorAction } from "./ApiAction";
 
 export const getApplicationsResponse = applications => ({
-    type: ActionType.GET_APPLICATIONS_RESPONSE,
-    applications
+  type: ActionType.GET_APPLICATIONS_RESPONSE,
+  applications
 });
-
-
 
 export function getApplicationsAction() {
-    return (dispatch) => {
+  return dispatch => {
+    dispatch(ApiCallBeginAction());
 
-        dispatch(ApiCallBeginAction());
-
-        return ApplicationApi.getAllApplications()
-            .then(applications => {
-                dispatch(getApplicationsResponse(applications));
-            }).catch(error => {
-                throw error;
-            });
-    };
+    return ApplicationApi.getAllApplications()
+      .then(applications => {
+        dispatch(getApplicationsResponse(applications));
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
 }
-
-
 
 export const addNewApplicationResponse = () => ({
-    type: ActionType.ADD_NEW_APPLICATION_RESPONSE
+  type: ActionType.ADD_NEW_APPLICATION_RESPONSE
 });
-
-
 
 export const updateExistingApplicationResponse = () => ({
-    type: ActionType.UPDATE_EXISTING_APPLICATION_RESPONSE
+  type: ActionType.UPDATE_EXISTING_APPLICATION_RESPONSE
 });
-
-
 
 export function saveApplicationAction(applicationBeingAddedOrEdited) {
-    return function (dispatch) {
+  return function(dispatch) {
+    dispatch(ApiCallBeginAction());
 
-        dispatch(ApiCallBeginAction());
-
-        
-        return ApplicationApi.saveApplication(applicationBeingAddedOrEdited)
-            .then(() => {
-                if (applicationBeingAddedOrEdited.id) {
-                    dispatch(updateExistingApplicationResponse());
-                } else {
-                    dispatch(addNewApplicationResponse());
-                }
-            }).then(() => {
-                dispatch(getApplicationsAction());
-            }).catch(error => {
-                dispatch(ApiCallErrorAction());
-                throw (error);
-            });
-    };
+    return ApplicationApi.saveApplication(applicationBeingAddedOrEdited)
+      .then(() => {
+        if (applicationBeingAddedOrEdited.id) {
+          dispatch(updateExistingApplicationResponse());
+          dispatch(getApplicationResponse(undefined));
+        } else {
+          dispatch(addNewApplicationResponse());
+        }
+      })
+      .then(() => {
+        dispatch(getApplicationsAction());
+      })
+      .catch(error => {
+        dispatch(ApiCallErrorAction());
+        throw error;
+      });
+  };
 }
-
-
 
 export const getApplicationResponse = applicationFound => ({
-    type: ActionType.GET_APPLICATION_RESPONSE,
-    application: applicationFound
+  type: ActionType.GET_APPLICATION_RESPONSE,
+  application: applicationFound
 });
-
-
 
 export function getApplicationAction(applicationId) {
-    return (dispatch) => {
+  return dispatch => {
+    dispatch(ApiCallBeginAction());
 
-        dispatch(ApiCallBeginAction());
-
-        return ApplicationApi.getApplication(applicationId)
-            .then(application => {
-                dispatch(getApplicationResponse(application));
-            }).catch(error => {
-                throw error;
-            });
-    };
+    return ApplicationApi.getApplication(applicationId)
+      .then(application => {
+        dispatch(getApplicationResponse(application));
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
 }
 
-
-
 export const deleteApplicationResponse = () => ({
-    type: ActionType.DELETE_APPLICATION_RESPONSE
+  type: ActionType.DELETE_APPLICATION_RESPONSE
 });
 
-
-
 export function deleteApplicationAction(applicationId) {
-    return (dispatch) => {
+  return dispatch => {
+    dispatch(ApiCallBeginAction());
 
-        dispatch(ApiCallBeginAction());
-
-        return ApplicationApi.deleteApplication(applicationId)
-            .then(() => {
-                dispatch(deleteApplicationResponse());
-            }).then(() => {
-                dispatch(getApplicationsAction());
-            }).catch(error => {
-                throw error;
-            });
-    };
+    return ApplicationApi.deleteApplication(applicationId)
+      .then(() => {
+        dispatch(deleteApplicationResponse());
+      })
+      .then(() => {
+        dispatch(getApplicationsAction());
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
 }

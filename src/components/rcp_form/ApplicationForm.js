@@ -27,7 +27,7 @@ export class ApplicationForm extends Component {
     return (
       <form onSubmit={null}>
         <h1>{heading}</h1>
-        {
+        { true &&
           <div>
             <ApplicantDetails />
             <ExistingPermit />
@@ -40,7 +40,6 @@ export class ApplicationForm extends Component {
             <Acknowledgement />
           </div>
         }
-
         <div>
           <button
             type="submit"

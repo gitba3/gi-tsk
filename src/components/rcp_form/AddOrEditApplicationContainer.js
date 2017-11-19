@@ -22,21 +22,12 @@ export class AddOrEditApplicationContainer extends React.Component {
   }
 
   handleSave(values) {
-    console.log("JSON", JSON.stringify(values));
-    const application = {
-      id: values.id,
-      title: values.title,
-      watchHref: values.watchHref,
-      authorId: values.authorId,
-      length: values.length,
-      category: values.category
-    };
-
+    const we = values;
     this.props.action
-      .saveApplicationAction(application)
+      .saveApplicationAction(values)
       .then(() => {
         toastr.success("Application saved");
-        // this.props.history.push("/applications");
+        this.props.history.push("/applications");
       })
       .catch(error => {
         toastr.error(error);
@@ -56,7 +47,7 @@ export class AddOrEditApplicationContainer extends React.Component {
         : "New Application";
 
     return (
-      <div className="container">
+      <div className="container-fluid">
         <ApplicationForm
           heading={heading}
           handleSave={this.handleSave}
@@ -79,11 +70,10 @@ const mapStateToProps = (state, ownProps) => {
     return {
       initialValues: state.selectedApplicationReducer.application
     };
-  } else {
-    return {
-      initialValues: { permit_type: "new", applicant_type: "ind" }
-    };
   }
+  return {
+    initialValues: undefined
+  };
 };
 
 const mapDispatchToProps = dispatch => ({
