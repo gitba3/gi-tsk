@@ -21,7 +21,6 @@ class Dictaphone extends Component {
       abortListening,
       stopListening
     } = this.props;
-    console.log(this.props);
     if (!browserSupportsSpeechRecognition) {
       return null;
     }
@@ -135,11 +134,11 @@ export class CaptureAudio extends Component {
                 {" Start"}
               </button>
             )}
-            <Speech
-              cb={this.props.changeAudioText}
-              ref={c => (this.speech = c)}
-            />
           </div>
+          <Speech
+            cb={this.props.changeAudioText}
+            ref={c => (this.speech = c)}
+          />
         </div>
         <Field
           // defaultValue={address}

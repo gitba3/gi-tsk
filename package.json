@@ -24,7 +24,13 @@
     "redux-form": "^6.8.0",
     "redux-thunk": "^2.2.0",
     "tether": "^1.4.0",
-    "toastr": "^2.1.2"
+    "toastr": "^2.1.2",
+    "body-parser": "1.18.2",
+    "express": "4.16.2",
+    "nconf": "0.8.5",
+    "prompt": "1.0.0",
+    "pug": "2.0.0-rc.4",
+    "uglify-js": "3.1.6"
   },
   "devDependencies": {
     "coveralls": "^2.13.1",
@@ -33,13 +39,35 @@
     "nock": "^9.0.13",
     "react-addons-test-utils": "^15.4.2",
     "react-scripts": "0.9.5",
-    "redux-mock-store": "^1.2.3"
+    "redux-mock-store": "^1.2.3",
+    "@google-cloud/nodejs-repo-tools": "2.1.0",
+    "ava": "0.23.0",
+    "proxyquire": "1.8.0",
+    "sinon": "4.0.2",
+    "tap-dot": "1.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "coverage": "react-scripts test --env=jsdom --coverage",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+
+    "deploy": "gcloud app deploy",
+    "server-start": "node app.js",
+    "lint": "samples lint",
+    "pretest": "npm run lint",
+    "system-test": "samples test app",
+    "server-test": "npm run system-test",
+    "e2e-test": "samples test deploy"
+  },
+  "cloud-repo-tools": {
+    "test": {
+      "app": {
+        "msg": "Hello, world!"
+      }
+    },
+    "requiresKeyFile": true,
+    "requiresProjectId": true
   }
 }

@@ -76,7 +76,7 @@ class Capture extends Component {
               </button>
               <button
                 type="button"
-                className="btn btn-outline-primary"
+                className="btn btn-outline-danger ml-2"
                 onClick={this.closeModal}
               >
                 Cancel

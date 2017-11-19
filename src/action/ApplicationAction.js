@@ -1,5 +1,6 @@
 import * as ActionType from "./ActionType";
-import ApplicationApi from "../api/ApplicationApi";
+import ApplicationApi from "../api/ApplicationRemoteApi";
+// import ApplicationApi from "../api/ApplicationApi";
 import { ApiCallBeginAction, ApiCallErrorAction } from "./ApiAction";
 
 export const getApplicationsResponse = applications => ({
